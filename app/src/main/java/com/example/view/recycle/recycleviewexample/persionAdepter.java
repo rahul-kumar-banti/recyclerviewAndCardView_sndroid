@@ -14,17 +14,22 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+interface cardItemClicked
+{
+    public void onCardItemClicked(int i);
+}
 public class persionAdepter extends RecyclerView.Adapter<persionAdepter.Viewholder> {
     ArrayList<Persion> people;
-
+cardItemClicked activity;
 
     public persionAdepter(Context context, ArrayList<Persion> people) {
         this.people = people;
+        activity=(cardItemClicked)context;
     }
     public class Viewholder extends RecyclerView.ViewHolder {
         TextView tvName,tvSurname;
         ImageView imgPref;
-        public Viewholder(@NonNull View itemView) {
+        public Viewholder(@NonNull final View itemView) {
             super(itemView);
           tvName=itemView.findViewById(R.id.tvName);
           tvSurname=itemView.findViewById(R.id.tvSurname);
@@ -32,7 +37,7 @@ public class persionAdepter extends RecyclerView.Adapter<persionAdepter.Viewhold
           itemView.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
-
+activity.onCardItemClicked(people.indexOf(v.getTag()));
               }
           });
         }
